@@ -1,0 +1,17 @@
+# ROS 2 build artifacts
+build/
+install/
+log/
+
+# Docker
+docker-compose.yml
+docker-compose.override.yml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# VS Code
+.vscode/
