@@ -1,5 +1,6 @@
 import math
 from collections import deque
+import os
 
 import numpy as np
 import rclpy
@@ -8,6 +9,8 @@ from rclpy.node import Node
 from sensor_msgs.msg import PointCloud2
 from sensor_msgs_py import point_cloud2
 from tf2_ros import TransformBroadcaster
+from ament_index_python.packages import get_package_share_directory 
+
 
 
 class TurtlebotDetector(Node):
@@ -15,9 +18,12 @@ class TurtlebotDetector(Node):
         super().__init__('turtlebot_detector')
 
         self.cloud_topic = self.param('cloud_topic', '/livox/lidar')
+        pkg_dir = get_package_share_directory('detector')
+        default_background_path = os.path.join(pkg_dir, 'config', 'background_voxels.npz')
+        
         self.background_path = self.param(
             'background',
-            '/workspace/StarLine_2026/background_voxels.npz',
+            default_background_path,
         )
         self.foreground_topic = self.param('foreground_topic', '/foreground_cloud')
         self.cluster_topic = self.param('cluster_topic', '/turtlebot_cluster')
